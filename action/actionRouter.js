@@ -20,52 +20,52 @@ router.get("/", (req, res) => {
     });
 });
 
-// router.post("/", (req, res) => {
-//   Actions.insert(req.body)
-//     .then((user) => {
-//       res.status(201).json(user);
-//     })
-//     .catch((error) => {
-//       console.log(error);
-//       res.status(500).json({
-//         message: "Error adding an action.",
-//       });
-//     });
-// });
+router.post("/", (req, res) => {
+  Actions.insert(req.body)
+    .then((user) => {
+      res.status(201).json(user);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).json({
+        message: "Error adding an action.",
+      });
+    });
+});
 
-// router.put("/:id", (req, res) => {
-//   Actions.update(req.params.id, req.body)
-//     .then((user) => {
-//       if (user) {
-//         res.status(200).json(user);
-//       } else {
-//         res.status(404).json({ message: "Action could not be found." });
-//       }
-//     })
-//     .catch((error) => {
-//       console.log(error);
-//       res.status(500).json({
-//         message: "Error updating action.",
-//       });
-//     });
-// });
+router.put("/:id", (req, res) => {
+  Actions.update(req.params.id, req.body)
+    .then((user) => {
+      if (user) {
+        res.status(200).json(user);
+      } else {
+        res.status(404).json({ message: "Action could not be found." });
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).json({
+        message: "Error updating action.",
+      });
+    });
+});
 
-// router.delete("/:id", (req, res) => {
-//   Actions.remove(req.params.id)
-//     .then((user) => {
-//       if (user) {
-//         res.status(200).json({ message: "Action has been deleted." });
-//       } else {
-//         res.status(404).json({ message: "Action could not be found." });
-//       }
-//     })
-//     .catch((error) => {
-//       console.log(error);
-//       res.status(500).json({
-//         message: "Error deleting the action.",
-//       });
-//     });
-// });
+router.delete("/:id", (req, res) => {
+  Actions.remove(req.params.id)
+    .then((user) => {
+      if (user) {
+        res.status(200).json({ message: "Action has been deleted." });
+      } else {
+        res.status(404).json({ message: "Action could not be found." });
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).json({
+        message: "Error deleting the action.",
+      });
+    });
+});
 
 // //custom middleware
 

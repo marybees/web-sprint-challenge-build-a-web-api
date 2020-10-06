@@ -22,52 +22,52 @@ router.get("/", (req, res) => {
     });
 });
 
-// router.post("/", (req, res) => {
-//   Projects.insert(req.body)
-//     .then((user) => {
-//       res.status(201).json(user);
-//     })
-//     .catch((error) => {
-//       console.log(error);
-//       res.status(500).json({
-//         message: "Error adding a project.",
-//       });
-//     });
-// });
+router.post("/", (req, res) => {
+  Projects.insert(req.body)
+    .then((user) => {
+      res.status(201).json(user);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).json({
+        message: "Error adding a project.",
+      });
+    });
+});
 
-// router.put("/:id", (req, res) => {
-//   Projects.update(req.params.id, req.body)
-//     .then((user) => {
-//       if (user) {
-//         res.status(200).json(user);
-//       } else {
-//         res.status(404).json({ message: "Project could not be found." });
-//       }
-//     })
-//     .catch((error) => {
-//       console.log(error);
-//       res.status(500).json({
-//         message: "Error updating project.",
-//       });
-//     });
-// });
+router.put("/:id", (req, res) => {
+  Projects.update(req.params.id, req.body)
+    .then((user) => {
+      if (user) {
+        res.status(200).json(user);
+      } else {
+        res.status(404).json({ message: "Project could not be found." });
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).json({
+        message: "Error updating project.",
+      });
+    });
+});
 
-// router.delete("/:id", (req, res) => {
-//   Projects.remove(req.params.id)
-//     .then((user) => {
-//       if (user) {
-//         res.status(200).json({ message: "Project has been deleted." });
-//       } else {
-//         res.status(404).json({ message: "Project could not be found." });
-//       }
-//     })
-//     .catch((error) => {
-//       console.log(error);
-//       res.status(500).json({
-//         message: "Error deleting the project.",
-//       });
-//     });
-// });
+router.delete("/:id", (req, res) => {
+  Projects.remove(req.params.id)
+    .then((user) => {
+      if (user) {
+        res.status(200).json({ message: "Project has been deleted." });
+      } else {
+        res.status(404).json({ message: "Project could not be found." });
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).json({
+        message: "Error deleting the project.",
+      });
+    });
+});
 
 // //custom middleware
 
