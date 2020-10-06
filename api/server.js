@@ -1,10 +1,14 @@
 const express = require("express");
 
-const postsRouter = require("../project/projectRouter");
+const projectRouter = require("../project/projectRouter");
 
-const userRouter = require("../action/actionRouter");
+const actionRouter = require("../action/actionRouter");
 
 const server = express();
+
+server.use(express.json());
+
+server.use(logger);
 
 server.get("/", (req, res) => {
   res.status(200).json({
@@ -19,8 +23,9 @@ function logger(req, res, next) {
       "Origin"
     )}`
   );
+}
 
-// endpoints
-server.use("../project/projectRouter", "../action/actionRouter", logger);
+server.use("/api/projects", projectRouter);
+server.use("/api/actions", actionRouter);
 
 module.exports = server;

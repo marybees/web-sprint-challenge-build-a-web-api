@@ -5,70 +5,74 @@ const Projects = require("../data/helpers/projectModel");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  Projects.get(req.query)
-    .then((users) => {
-      res.status(200).json(users);
+  Projects.get()
+    .then((projects) => {
+      if (projects.length === 0) {
+        res
+          .status(404)
+          .json({ message: "There were no projects to be found." });
+      } else {
+        res.status(200).json(projects);
+      }
     })
-    .catch((error) => {
-      console.log(error);
+    .catch((projects) => {
       res.status(500).json({
         message: "Error retrieving projects.",
       });
     });
 });
 
-router.post("/", (req, res) => {
-  Projects.insert(req.body)
-    .then((user) => {
-      res.status(201).json(user);
-    })
-    .catch((error) => {
-      console.log(error);
-      res.status(500).json({
-        message: "Error adding a project.",
-      });
-    });
-});
+// router.post("/", (req, res) => {
+//   Projects.insert(req.body)
+//     .then((user) => {
+//       res.status(201).json(user);
+//     })
+//     .catch((error) => {
+//       console.log(error);
+//       res.status(500).json({
+//         message: "Error adding a project.",
+//       });
+//     });
+// });
 
-router.put("/:id", (req, res) => {
-  Projects.update(req.params.id, req.body)
-    .then((user) => {
-      if (user) {
-        res.status(200).json(user);
-      } else {
-        res.status(404).json({ message: "Project could not be found." });
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-      res.status(500).json({
-        message: "Error updating project.",
-      });
-    });
-});
+// router.put("/:id", (req, res) => {
+//   Projects.update(req.params.id, req.body)
+//     .then((user) => {
+//       if (user) {
+//         res.status(200).json(user);
+//       } else {
+//         res.status(404).json({ message: "Project could not be found." });
+//       }
+//     })
+//     .catch((error) => {
+//       console.log(error);
+//       res.status(500).json({
+//         message: "Error updating project.",
+//       });
+//     });
+// });
 
-router.delete("/:id", (req, res) => {
-  Projects.remove(req.params.id)
-    .then((user) => {
-      if (user) {
-        res.status(200).json({ message: "Project has been deleted." });
-      } else {
-        res.status(404).json({ message: "Project could not be found." });
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-      res.status(500).json({
-        message: "Error deleting the project.",
-      });
-    });
-});
+// router.delete("/:id", (req, res) => {
+//   Projects.remove(req.params.id)
+//     .then((user) => {
+//       if (user) {
+//         res.status(200).json({ message: "Project has been deleted." });
+//       } else {
+//         res.status(404).json({ message: "Project could not be found." });
+//       }
+//     })
+//     .catch((error) => {
+//       console.log(error);
+//       res.status(500).json({
+//         message: "Error deleting the project.",
+//       });
+//     });
+// });
 
 // //custom middleware
 
-// //endpoints that inlude id param (ex: /api/users/:id)
 // function validateUserId(req, res, next) {
-//   Users.getById(req.params.id)
+//   Projects.getById(req.params.id)
 //     .then((data) => {
 //       if (!data) {
 //         res.satus(404).json({ errorMessage: "Incorrect User Id" });
@@ -80,9 +84,6 @@ router.delete("/:id", (req, res) => {
 //     .catch((data) => res.status(500).json({ error: "Something went wrong." }));
 // }
 
-// // validateUser validates the body on a request to create a new user
-// // if the request body is missing, cancel the request and respond with status 400 and { message: "missing user data" }
-// // if the request body is missing the required name field, cancel the request and respond with status 400 and { message: "missing required name field" }
 // function validateUser(req, res, next) {
 //   if (req.body && req.body.name) {
 //     next();
@@ -91,7 +92,7 @@ router.delete("/:id", (req, res) => {
 //   } else if (!req.body.name) {
 //     res.satus(400).json({ errorMessage: "Missing required ame field" });
 //   } else {
-//     Users.insert(req.body)
+//     Projects.insert(req.body)
 //       .then((data) => {
 //         req.body = data;
 //         next();
@@ -102,16 +103,13 @@ router.delete("/:id", (req, res) => {
 //   }
 // }
 
-// // validatePost validates the body on a request to create a new post
-// // if the request body is missing, cancel the request and respond with status 400 and { message: "missing post data" }
-// // if the request body is missing the required text field, cancel the request and respond with status 400 and { message: "missing required text field" }
-// function validatePost(req, res, next) {
+// function validateProject(req, res, next) {
 //   if (!req.body) {
-//     res.status(400).json({ message: "missing post data" });
+//     res.status(400).json({ message: "Missing project data." });
 //   } else if (!req.body.text) {
-//     res.status(400).json({ message: "missing required text field" });
+//     res.status(400).json({ message: "Missing required text field." });
 //   } else {
-//     Posts.insert({ ...req.body, user_id: req.params.id })
+//     Projects.insert({ ...req.body, user_id: req.params.id })
 //       .then((data) => {
 //         req.post = data;
 //         next();
