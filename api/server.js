@@ -8,7 +8,7 @@ const server = express();
 
 server.use(express.json());
 
-server.use(logger);
+// server.use(logger);
 
 server.get("/", (req, res) => {
   res.status(200).json({
@@ -16,14 +16,14 @@ server.get("/", (req, res) => {
   });
 });
 
-// global middleware
-function logger(req, res, next) {
-  console.log(
-    `[${new Date().toISOString()}] ${req.method} to ${req.url} from ${req.get(
-      "Origin"
-    )}`
-  );
-}
+// // global middleware
+// function logger(req, res, next) {
+//   console.log(
+//     `[${new Date().toISOString()}] ${req.method} to ${req.url} from ${req.get(
+//       "Origin"
+//     )}`
+//   );
+// }
 
 server.use("/api/projects", projectRouter);
 server.use("/api/actions", actionRouter);
